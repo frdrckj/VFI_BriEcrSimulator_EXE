@@ -6,7 +6,7 @@ Clean separation of concerns with dedicated modules for different functionalitie
 import logging
 import os
 import time
-from flask import Blueprint, request, jsonify, send_file, session
+from flask import Blueprint, request, jsonify, send_file
 
 # Import our modular components
 from .ecr_core import EcrCore
@@ -141,11 +141,6 @@ def build_request():
 def process_transaction():
     """Process a transaction"""
     try:
-        # Get current user's ID from session
-        user_id = session.get('user_id')
-        if not user_id:
-            return jsonify({'error': 'Unauthorized'}), 401
-
         data = request.get_json()
         transaction_type = data.get("transaction_type", "SALE")
         amount = data.get("amount", "0.00")
@@ -154,7 +149,7 @@ def process_transaction():
         add_amount = data.get("addAmount", "0")
 
         result = transaction_processor.process_transaction(
-            transaction_type, amount, invoice_no, card_no, add_amount, user_id=user_id
+            transaction_type, amount, invoice_no, card_no, add_amount, user_id=None
         )
         return jsonify(result)
 
@@ -176,13 +171,8 @@ def get_transaction_status(trx_id):
 @ecr_bp.route("/history", methods=["GET"])
 def get_history():
     """Get transaction history"""
-    # Get current user's ID from session
-    user_id = session.get('user_id')
-    if not user_id:
-        return jsonify({'error': 'Unauthorized'}), 401
-
     history_list = []
-    visible_history = config.get_visible_transaction_history(user_id=user_id)
+    visible_history = config.get_visible_transaction_history(user_id=None)
 
     for trx_id, data in visible_history.items():
         history_item = EcrUtils.format_transaction_for_history(trx_id, data)
@@ -196,12 +186,7 @@ def get_history():
 @ecr_bp.route("/history", methods=["DELETE"])
 def clear_history():
     """Clear transaction history from UI display"""
-    # Get current user's ID from session
-    user_id = session.get('user_id')
-    if not user_id:
-        return jsonify({'error': 'Unauthorized'}), 401
-
-    config.clear_ui_transaction_history(user_id=user_id)
+    config.clear_ui_transaction_history(user_id=None)
     return jsonify(
         {"status": "success", "message": "Transaction history cleared from display"}
     )
@@ -286,11 +271,6 @@ def download_history():
         import json
         import tempfile
 
-        # Get current user's ID from session
-        user_id = session.get('user_id')
-        if not user_id:
-            return jsonify({'error': 'Unauthorized'}), 401
-
         # Check password parameter
         password = request.args.get("password", "")
         if not EcrUtils.validate_daily_password(password):
@@ -303,14 +283,12 @@ def download_history():
                 401,
             )
 
-        # Get only current user's transactions
+        # Get all transaction history
         all_history = config.get_transaction_history()
-        user_history = {trx_id: data for trx_id, data in all_history.items()
-                       if data.get('user_id') == user_id}
 
-        # Create a temporary file with filtered history
+        # Create a temporary file with history
         temp_file = tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.json')
-        json.dump(user_history, temp_file, indent=2)
+        json.dump(all_history, temp_file, indent=2)
         temp_file.close()
 
         return send_file(

@@ -24,7 +24,9 @@
       "Bash(python3:*)",
       "Bash(lsof:*)",
       "Bash(xargs kill:*)",
-      "Bash(rsync:*)"
+      "Bash(rsync:*)",
+      "Bash(venv/bin/pip install:*)",
+      "Bash(venv/bin/python:*)"
     ],
     "deny": [],
     "ask": []

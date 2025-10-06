@@ -9,53 +9,11 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <script>
-        // Check authentication before loading the page
-        async function checkAuth() {
-            try {
-                const response = await fetch('/api/auth/check-auth');
-                const data = await response.json();
-
-                if (!data.authenticated) {
-                    window.location.href = '/login.html';
-                    return;
-                }
-
-                // Store user info for display
-                window.currentUser = data.user;
-
-                // Hide auth section if in dev-mode
-                if (window.currentUser.username === 'dev-mode') {
-                    const authSection = document.getElementById('authSection');
-                    if (authSection) {
-                        authSection.style.display = 'none';
-                    }
-                } else {
-                    // Update user display
-                    const userDisplay = document.getElementById('userDisplay');
-                    if (userDisplay && window.currentUser) {
-                        userDisplay.textContent = `Logged in as: ${window.currentUser.username}${window.currentUser.is_admin ? ' (Admin)' : ''}`;
-                    }
-                }
-            } catch (error) {
-                console.error('Auth check failed:', error);
-                window.location.href = '/login.html';
-            }
-        }
-
-        checkAuth();
-    </script>
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
                 <div class="header-bar">
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <h4 class="mb-0">BRI ECR Web Simulator V.1.0</h4>
-                        <div style="display: flex; gap: 15px; align-items: center;" id="authSection">
-                            <span id="userDisplay" style="font-size: 14px;"></span>
-                            <button type="button" class="btn btn-sm btn-light" id="logoutBtn">Logout</button>
-                        </div>
-                    </div>
+                    <h4 class="mb-0">BRI ECR Web Simulator V.1.0</h4>
                 </div>
             </div>
         </div>
