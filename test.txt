@@ -1,0 +1,157 @@
+No.     Time           Source                Destination           Protocol Length Info
+      2 0.176782       52.123.161.52         172.20.10.3           TLSv1.2  105    Application Data
+
+Frame 2: 105 bytes on wire (840 bits), 105 bytes captured (840 bits)
+Ethernet II, Src: 0e:6a:c4:58:4e:64 (0e:6a:c4:58:4e:64), Dst: de:ab:83:62:84:79 (de:ab:83:62:84:79)
+Internet Protocol Version 4, Src: 52.123.161.52, Dst: 172.20.10.3
+Transmission Control Protocol, Src Port: 443, Dst Port: 49490, Seq: 1, Ack: 51, Len: 39
+Transport Layer Security
+
+No.     Time           Source                Destination           Protocol Length Info
+      5 2.672299       142.251.12.188        172.20.10.3           TCP      66     [TCP ACKed unseen segment] 5228 → 49437 [ACK] Seq=1 Ack=2 Win=1043 Len=0 TSval=863644473 TSecr=3247213290
+
+Frame 5: 66 bytes on wire (528 bits), 66 bytes captured (528 bits)
+Ethernet II, Src: 0e:6a:c4:58:4e:64 (0e:6a:c4:58:4e:64), Dst: de:ab:83:62:84:79 (de:ab:83:62:84:79)
+Internet Protocol Version 4, Src: 142.251.12.188, Dst: 172.20.10.3
+Transmission Control Protocol, Src Port: 5228, Dst Port: 49437, Seq: 1, Ack: 2, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+      7 4.139450       172.20.10.4           172.20.10.3           TCP      66     9001 → 50001 [ACK] Seq=1 Ack=206 Win=352 Len=0 TSval=3197210 TSecr=1380125178
+
+Frame 7: 66 bytes on wire (528 bits), 66 bytes captured (528 bits)
+Ethernet II, Src: QuectelWirel_14:e1:8d (90:bd:e6:14:e1:8d), Dst: de:ab:83:62:84:79 (de:ab:83:62:84:79)
+Internet Protocol Version 4, Src: 172.20.10.4, Dst: 172.20.10.3
+Transmission Control Protocol, Src Port: 9001, Dst Port: 50001, Seq: 1, Ack: 206, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+      8 4.253766       172.20.10.4           172.20.10.3           TCP      67     9001 → 50001 [PSH, ACK] Seq=1 Ack=206 Win=352 Len=1 TSval=3197222 TSecr=1380125178
+
+Frame 8: 67 bytes on wire (536 bits), 67 bytes captured (536 bits)
+Ethernet II, Src: QuectelWirel_14:e1:8d (90:bd:e6:14:e1:8d), Dst: de:ab:83:62:84:79 (de:ab:83:62:84:79)
+Internet Protocol Version 4, Src: 172.20.10.4, Dst: 172.20.10.3
+Transmission Control Protocol, Src Port: 9001, Dst Port: 50001, Seq: 1, Ack: 206, Len: 1
+Data (1 byte)
+
+0000  06                                                .
+
+No.     Time           Source                Destination           Protocol Length Info
+     15 9.325104       35.186.224.44         172.20.10.3           TCP      66     443 → 49438 [ACK] Seq=1 Ack=44 Win=1039 Len=0 TSval=3181697735 TSecr=2722798824
+
+Frame 15: 66 bytes on wire (528 bits), 66 bytes captured (528 bits)
+Ethernet II, Src: 0e:6a:c4:58:4e:64 (0e:6a:c4:58:4e:64), Dst: de:ab:83:62:84:79 (de:ab:83:62:84:79)
+Internet Protocol Version 4, Src: 35.186.224.44, Dst: 172.20.10.3
+Transmission Control Protocol, Src Port: 443, Dst Port: 49438, Seq: 1, Ack: 44, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+     17 9.592447       35.186.224.44         172.20.10.3           TCP      66     443 → 54825 [ACK] Seq=1 Ack=33 Win=1042 Len=0 TSval=3151772118 TSecr=3090435816
+
+Frame 17: 66 bytes on wire (528 bits), 66 bytes captured (528 bits)
+Ethernet II, Src: 0e:6a:c4:58:4e:64 (0e:6a:c4:58:4e:64), Dst: de:ab:83:62:84:79 (de:ab:83:62:84:79)
+Internet Protocol Version 4, Src: 35.186.224.44, Dst: 172.20.10.3
+Transmission Control Protocol, Src Port: 443, Dst Port: 54825, Seq: 1, Ack: 33, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+     18 9.632207       35.186.224.44         172.20.10.3           TLSv1.2  106    Application Data
+
+Frame 18: 106 bytes on wire (848 bits), 106 bytes captured (848 bits)
+Ethernet II, Src: 0e:6a:c4:58:4e:64 (0e:6a:c4:58:4e:64), Dst: de:ab:83:62:84:79 (de:ab:83:62:84:79)
+Internet Protocol Version 4, Src: 35.186.224.44, Dst: 172.20.10.3
+Transmission Control Protocol, Src Port: 443, Dst Port: 49438, Seq: 1, Ack: 44, Len: 40
+Transport Layer Security
+
+No.     Time           Source                Destination           Protocol Length Info
+     20 10.071746      35.186.224.44         172.20.10.3           TLSv1.2  94     Application Data
+
+Frame 20: 94 bytes on wire (752 bits), 94 bytes captured (752 bits)
+Ethernet II, Src: 0e:6a:c4:58:4e:64 (0e:6a:c4:58:4e:64), Dst: de:ab:83:62:84:79 (de:ab:83:62:84:79)
+Internet Protocol Version 4, Src: 35.186.224.44, Dst: 172.20.10.3
+Transmission Control Protocol, Src Port: 443, Dst Port: 54825, Seq: 1, Ack: 33, Len: 28
+Transport Layer Security
+
+No.     Time           Source                Destination           Protocol Length Info
+     23 13.769219      172.20.10.1           172.20.10.3           TCP      54     63065 → 63573 [ACK] Seq=1 Ack=1 Win=2048 Len=0
+
+Frame 23: 54 bytes on wire (432 bits), 54 bytes captured (432 bits)
+Ethernet II, Src: 0e:6a:c4:58:4e:64 (0e:6a:c4:58:4e:64), Dst: de:ab:83:62:84:79 (de:ab:83:62:84:79)
+Internet Protocol Version 4, Src: 172.20.10.1, Dst: 172.20.10.3
+Transmission Control Protocol, Src Port: 63065, Dst Port: 63573, Seq: 1, Ack: 1, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+     25 14.470068      20.189.173.24         172.20.10.3           TCP      54     443 → 55049 [RST, ACK] Seq=1 Ack=1 Win=0 Len=0
+
+Frame 25: 54 bytes on wire (432 bits), 54 bytes captured (432 bits)
+Ethernet II, Src: 0e:6a:c4:58:4e:64 (0e:6a:c4:58:4e:64), Dst: de:ab:83:62:84:79 (de:ab:83:62:84:79)
+Internet Protocol Version 4, Src: 20.189.173.24, Dst: 172.20.10.3
+Transmission Control Protocol, Src Port: 443, Dst Port: 55049, Seq: 1, Ack: 1, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+     26 22.056250      172.20.10.4           172.20.10.3           TCP      371    9001 → 50001 [PSH, ACK] Seq=2 Ack=206 Win=352 Len=305 TSval=3198999 TSecr=1380125329
+
+Frame 26: 371 bytes on wire (2968 bits), 371 bytes captured (2968 bits)
+Ethernet II, Src: QuectelWirel_14:e1:8d (90:bd:e6:14:e1:8d), Dst: de:ab:83:62:84:79 (de:ab:83:62:84:79)
+Internet Protocol Version 4, Src: 172.20.10.4, Dst: 172.20.10.3
+Transmission Control Protocol, Src Port: 9001, Dst Port: 50001, Seq: 2, Ack: 206, Len: 305
+Data (305 bytes)
+
+0000  02 03 00 01 00 00 00 00 00 00 00 00 00 00 00 00   ................
+0010  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00   ................
+0020  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00   ................
+0030  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00   ................
+0040  00 00 00 00 00 00 00 30 30 30 30 30 30 30 30 31   .......000000001
+0050  30 30 30 30 30 30 30 30 30 30 30 31 30 30 30 00   000000000001000.
+0060  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00   ................
+0070  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00   ................
+0080  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00   ................
+0090  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00   ................
+00a0  00 00 45 52 00 00 00 00 00 00 00 00 00 00 00 00   ..ER............
+00b0  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00   ................
+00c0  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 30   ...............0
+00d0  30 30 30 30 30 30 30 30 30 30 30 44 69 62 61 74   00000000000Dibat
+00e0  61 6c 6b 61 6e 20 50 65 6e 67 67 75 6e 61 00 00   alkan Pengguna..
+00f0  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00   ................
+0100  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00   ................
+0110  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00   ................
+0120  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 03   ................
+0130  26                                                &
+
+No.     Time           Source                Destination           Protocol Length Info
+     29 22.065660      172.20.10.4           172.20.10.3           TCP      66     9001 → 50001 [ACK] Seq=307 Ack=207 Win=352 Len=0 TSval=3199003 TSecr=1380143132
+
+Frame 29: 66 bytes on wire (528 bits), 66 bytes captured (528 bits)
+Ethernet II, Src: QuectelWirel_14:e1:8d (90:bd:e6:14:e1:8d), Dst: de:ab:83:62:84:79 (de:ab:83:62:84:79)
+Internet Protocol Version 4, Src: 172.20.10.4, Dst: 172.20.10.3
+Transmission Control Protocol, Src Port: 9001, Dst Port: 50001, Seq: 307, Ack: 207, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+     31 23.259080      35.186.224.24         172.20.10.3           TCP      66     [TCP ACKed unseen segment] 443 → 49431 [ACK] Seq=1 Ack=2 Win=1015 Len=0 TSval=425896509 TSecr=2620339911
+
+Frame 31: 66 bytes on wire (528 bits), 66 bytes captured (528 bits)
+Ethernet II, Src: 0e:6a:c4:58:4e:64 (0e:6a:c4:58:4e:64), Dst: de:ab:83:62:84:79 (de:ab:83:62:84:79)
+Internet Protocol Version 4, Src: 35.186.224.24, Dst: 172.20.10.3
+Transmission Control Protocol, Src Port: 443, Dst Port: 49431, Seq: 1, Ack: 2, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+     33 24.102439      4.213.25.242          172.20.10.3           TCP      54     443 → 49432 [ACK] Seq=1 Ack=15 Win=7920 Len=0
+
+Frame 33: 54 bytes on wire (432 bits), 54 bytes captured (432 bits)
+Ethernet II, Src: 0e:6a:c4:58:4e:64 (0e:6a:c4:58:4e:64), Dst: de:ab:83:62:84:79 (de:ab:83:62:84:79)
+Internet Protocol Version 4, Src: 4.213.25.242, Dst: 172.20.10.3
+Transmission Control Protocol, Src Port: 443, Dst Port: 49432, Seq: 1, Ack: 15, Len: 0
+
+No.     Time           Source                Destination           Protocol Length Info
+     35 24.261746      4.213.25.242          172.20.10.3           TLSv1.2  228    Application Data
+
+Frame 35: 228 bytes on wire (1824 bits), 228 bytes captured (1824 bits)
+Ethernet II, Src: 0e:6a:c4:58:4e:64 (0e:6a:c4:58:4e:64), Dst: de:ab:83:62:84:79 (de:ab:83:62:84:79)
+Internet Protocol Version 4, Src: 4.213.25.242, Dst: 172.20.10.3
+Transmission Control Protocol, Src Port: 443, Dst Port: 49432, Seq: 1, Ack: 44, Len: 174
+Transport Layer Security
+
+No.     Time           Source                Destination           Protocol Length Info
+     38 24.411716      52.123.161.52         172.20.10.3           TLSv1.2  113    Application Data
+
+Frame 38: 113 bytes on wire (904 bits), 113 bytes captured (904 bits)
+Ethernet II, Src: 0e:6a:c4:58:4e:64 (0e:6a:c4:58:4e:64), Dst: de:ab:83:62:84:79 (de:ab:83:62:84:79)
+Internet Protocol Version 4, Src: 52.123.161.52, Dst: 172.20.10.3
+Transmission Control Protocol, Src Port: 443, Dst Port: 49451, Seq: 1, Ack: 59, Len: 47
+Transport Layer Security

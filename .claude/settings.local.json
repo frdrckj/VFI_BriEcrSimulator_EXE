@@ -1,0 +1,32 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(chmod:*)",
+      "Bash(./build.sh)",
+      "Bash(source:*)",
+      "Bash(python3 -m pip:*)",
+      "Bash(cat:*)",
+      "Bash(python:*)",
+      "Bash(curl:*)",
+      "Bash(git push:*)",
+      "Bash(pkill:*)",
+      "Bash(if [ -f src/database/app.db ])",
+      "Bash(then sqlite3 src/database/app.db \"SELECT username, is_admin FROM user;\")",
+      "Bash(else echo \"Database file doesn''t exist\")",
+      "Bash(fi)",
+      "Bash(sqlite3:*)",
+      "Bash(rm:*)",
+      "Bash(then sqlite3 src/database/app.db \"SELECT id, username FROM user;\")",
+      "Bash(else echo \"Database doesn''t exist yet\")",
+      "Bash(if [ -f transaction_history.json ])",
+      "Bash(then echo \"Transaction history file exists\")",
+      "Bash(else echo \"No transaction history file yet\")",
+      "Bash(python3:*)",
+      "Bash(lsof:*)",
+      "Bash(xargs kill:*)",
+      "Bash(rsync:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

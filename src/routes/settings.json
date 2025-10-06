@@ -1,0 +1,13 @@
+{
+  "communication": "Serial",
+  "serial_port": "",
+  "socket_ip": "127.0.0.1",
+  "socket_port": "9001",
+  "speed_baud": "9600",
+  "data_bits": "8",
+  "stop_bits": "1",
+  "parity": "None",
+  "enable_ssl": false,
+  "enable_rest_api": false,
+  "edc_serial_number": ""
+}

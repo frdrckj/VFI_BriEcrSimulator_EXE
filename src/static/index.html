@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BRI ECR Simulator</title>
+    <link rel="icon" href="data:,">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <script>
+        // Check authentication before loading the page
+        async function checkAuth() {
+            try {
+                const response = await fetch('/api/auth/check-auth');
+                const data = await response.json();
+
+                if (!data.authenticated) {
+                    window.location.href = '/login.html';
+                    return;
+                }
+
+                // Store user info for display
+                window.currentUser = data.user;
+
+                // Hide auth section if in dev-mode
+                if (window.currentUser.username === 'dev-mode') {
+                    const authSection = document.getElementById('authSection');
+                    if (authSection) {
+                        authSection.style.display = 'none';
+                    }
+                } else {
+                    // Update user display
+                    const userDisplay = document.getElementById('userDisplay');
+                    if (userDisplay && window.currentUser) {
+                        userDisplay.textContent = `Logged in as: ${window.currentUser.username}${window.currentUser.is_admin ? ' (Admin)' : ''}`;
+                    }
+                }
+            } catch (error) {
+                console.error('Auth check failed:', error);
+                window.location.href = '/login.html';
+            }
+        }
+
+        checkAuth();
+    </script>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="header-bar">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <h4 class="mb-0">BRI ECR Web Simulator V.1.0</h4>
+                        <div style="display: flex; gap: 15px; align-items: center;" id="authSection">
+                            <span id="userDisplay" style="font-size: 14px;"></span>
+                            <button type="button" class="btn btn-sm btn-light" id="logoutBtn">Logout</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col-12">
+                <div class="button-group mb-3">
+                    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#settingsModal">
+                        Settings
+                    </button>
+                    <button type="button" class="btn btn-secondary" id="openBtn">
+                        Open
+                    </button>
+                    <div class="dropdown">
+                        <button type="button" class="btn btn-info dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            Download
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#" id="downloadLogBtn">Download Log</a></li>
+                            <li><a class="dropdown-item" href="#" id="downloadHistoryBtn">Download History</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-section">
+                    <div class="mb-3">
+                        <label for="transactionType" class="form-label">Transaction</label>
+                        <select class="form-select" id="transactionType">
+                            <option value="SALE" selected>SALE</option>
+                            <option value="INSTALLMENT">INSTALLMENT</option>
+                            <option value="VOID">VOID</option>
+                            <option value="GENERATE QR">GENERATE QR</option>
+                            <option value="QRIS STATUS TRANSAKSI">QRIS STATUS TRANSAKSI</option>
+                            <option value="QRIS REFUND">QRIS REFUND</option>
+                            <option value="INFO SALDO BRIZZI">INFO SALDO BRIZZI</option>
+                            <option value="PEMBAYARAN BRIZZI">PEMBAYARAN BRIZZI</option>
+                            <option value="TOPUP BRIZZI TERTUNDA">TOPUP BRIZZI TERTUNDA</option>
+                            <option value="TOPUP BRIZZI ONLINE">TOPUP BRIZZI ONLINE</option>
+                            <option value="UPDATE SALDO TERTUNDA BRIZZI">UPDATE SALDO TERTUNDA BRIZZI</option>
+                            <option value="VOID BRIZZI">VOID BRIZZI</option>
+                            <option value="FARE NON-FARE">FARE NON-FARE</option>
+                            <option value="CONTACTLESS">CONTACTLESS</option>
+                            <option value="SALE TIP">SALE TIP</option>
+                            <option value="KEY IN">KEY IN</option>
+                            <option value="LOGON">LOGON</option>
+                            <option value="SETTLEMENT">SETTLEMENT</option>
+                            <option value="SETTLEMENT BRIZZI">SETTLEMENT BRIZZI</option>
+                            <option value="REPRINT TRANSAKSI TERAKHIR">REPRINT TRANSAKSI TERAKHIR</option>
+                            <option value="REPRINT TRANSAKSI">REPRINT TRANSAKSI</option>
+                            <option value="DETAIL REPORT">DETAIL REPORT</option>
+                            <option value="SUMMARY REPORT">SUMMARY REPORT</option>
+                            <option value="REPRINT BRIZZI TRANSAKSI TERAKHIR">REPRINT BRIZZI TRANSAKSI TERAKHIR</option>
+                            <option value="REPRINT BRIZZI TRANSAKSI">REPRINT BRIZZI TRANSAKSI</option>
+                            <option value="BRIZZI DETAIL REPORT">BRIZZI DETAIL REPORT</option>
+                            <option value="BRIZZI SUMMARY REPORT">BRIZZI SUMMARY REPORT</option>
+                            <option value="QRIS DETAIL REPORT">QRIS DETAIL REPORT</option>
+                            <option value="QRIS SUMMARY REPORT">QRIS SUMMARY REPORT</option>
+                            <option value="INFO KARTU BRIZZI">INFO KARTU BRIZZI</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="amount" class="form-label">Amount</label>
+                        <input type="text" class="form-control" id="amount" placeholder="0">
+                    </div>
+                    <div class="mb-3" id="addAmountFields" style="display:none;">
+                        <label for="addAmount" class="form-label" id="addAmountLabel">Tip Amount</label>
+                        <input type="text" class="form-control" id="addAmount" placeholder="0">
+                    </div>
+                    <div class="mb-3" id="additionalFields" style="display:none;">
+                        <label for="invoiceNo" class="form-label" id="additionalLabel">Invoice No</label>
+                        <input type="text" class="form-control" id="invoiceNo" placeholder="000001">
+                    </div>
+                    <div class="mb-3" id="cardNumberFields" style="display:none;">
+                        <label for="cardNumber" class="form-label">Card Number</label>
+                        <input type="text" class="form-control" id="cardNumber" placeholder="Card Number">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Request</label>
+                        <textarea class="form-control" id="requestArea" rows="4" readonly></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Response</label>
+                        <textarea class="form-control" id="responseArea" rows="4" readonly></textarea>
+                    </div>
+                    <button type="button" class="btn btn-primary btn-lg send-btn" id="sendBtn">
+                        Send
+                    </button>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="status-section">
+                    <h5>Status</h5>
+                    <div class="status-indicator" id="statusIndicator">
+                        <span class="status-dot online"></span>
+                        <span>ONLINE</span>
+                    </div>
+                    <div class="mb-3" id="qrCodeSection" style="display: none;">
+                        <label class="form-label">QR Code</label>
+                        <div class="qr-code-container text-center p-3" style="background: white; border: 1px solid #ddd; border-radius: 5px;">
+                            <canvas id="qrCodeCanvas"></canvas>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center mt-4 mb-3">
+                        <h5 class="mb-0">Transaction History</h5>
+                        <button type="button" class="btn btn-sm btn-outline-danger" id="clearHistoryBtn" title="Clear all transaction history">
+                            Clear History
+                        </button>
+                    </div>
+                    <div class="history-container" id="historyContainer">
+                        <div class="history-item">
+                            <small class="text-muted">No transactions yet</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Settings Modal -->
+    <div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="settingsModalLabel">Settings</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="communication" class="form-label">Communication</label>
+                                <select class="form-select" id="communication">
+                                    <option value="Serial" selected>Serial</option>
+                                    <option value="Socket">Socket</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="socketIp" class="form-label">Socket Ip</label>
+                                <input type="text" class="form-control" id="socketIp" value="127.0.0.1">
+                            </div>
+                            <div class="mb-3">
+                                <label for="socketPort" class="form-label">Socket Port</label>
+                                <input type="text" class="form-control" id="socketPort" value="9001">
+                            </div>
+                            <div class="mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="enableSsl">
+                                    <label class="form-check-label" for="enableSsl">
+                                        Enable SSL
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="edcSerialNumber" class="form-label">EDC Serial Number</label>
+                                <input type="text" class="form-control" id="edcSerialNumber">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="serialPort" class="form-label">Serial Port</label>
+                                <select class="form-select" id="serialPort">
+                                    <option value="">Select Port</option>
+                                    <script>
+                                        for (let i = 1; i <= 100; i++) {
+                                            document.write(`<option value="COM${i}">COM${i}</option>`);
+                                        }
+                                    </script>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="speedBaud" class="form-label">Speed (Baud)</label>
+                                <select class="form-select" id="speedBaud">
+                                    <option value="2048">2048</option>
+                                    <option value="2400">2400</option>
+                                    <option value="9600" selected>9600</option>
+                                    <option value="19200">19200</option>
+                                    <option value="38400">38400</option>
+                                    <option value="57600">57600</option>
+                                    <option value="115200">115200</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="dataBits" class="form-label">Data Bits</label>
+                                <input type="text" class="form-control" id="dataBits" value="8">
+                            </div>
+                            <div class="mb-3">
+                                <label for="stopBits" class="form-label">Stop Bits</label>
+                                <select class="form-select" id="stopBits">
+                                    <option value="1" selected>1</option>
+                                    <option value="2">2</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="parity" class="form-label">Parity</label>
+                                <select class="form-select" id="parity">
+                                    <option value="None" selected>None</option>
+                                    <option value="Even">Even</option>
+                                    <option value="Odd">Odd</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="saveSettings">Save Settings</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Password Modal for Download Log -->
+    <div class="modal fade" id="passwordModal" tabindex="-1" aria-labelledby="passwordModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="passwordModalLabel">Download - Password Required</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="logPassword" class="form-label">Enter Password:</label>
+                        <input type="password" class="form-control" id="logPassword" onkeypress="if(event.key==='Enter') document.getElementById('downloadLogConfirm').click()">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="downloadLogConfirm">Download</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="qrcode.min.js"></script>
+    <script>
+        // QR Code generation function using qrcode-generator library
+        function generateQRCode(text, size = 256) {
+            try {
+                // Validate input length
+                if (!text || text.length === 0) {
+                    console.error('QR code text is empty');
+                    return null;
+                }
+                if (text.length > 1000) {
+                    console.error(`QR code text too long: ${text.length} characters`);
+                    return null;
+                }
+                console.log(`Generating QR code for text length: ${text.length}`);
+                // Use a higher version to support larger data
+                const typeNumber = 10; // Supports up to ~1200 alphanumeric characters
+                const errorCorrectionLevel = 'L';
+                const qr = qrcode(typeNumber, errorCorrectionLevel);
+                qr.addData(text);
+                qr.make();
+                const canvas = document.createElement('canvas');
+                const cellSize = Math.floor(size / qr.getModuleCount());
+                const margin = 4;
+                canvas.width = canvas.height = qr.getModuleCount() * cellSize + margin * 2;
+                const ctx = canvas.getContext('2d');
+                ctx.fillStyle = '#FFFFFF';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = '#000000';
+                for (let row = 0; row < qr.getModuleCount(); row++) {
+                    for (let col = 0; col < qr.getModuleCount(); col++) {
+                        if (qr.isDark(row, col)) {
+                            ctx.fillRect(
+                                col * cellSize + margin,
+                                row * cellSize + margin,
+                                cellSize,
+                                cellSize
+                            );
+                        }
+                    }
+                }
+                return canvas;
+            } catch (error) {
+                console.error('QR generation error:', error.message);
+                return null;
+            }
+        }
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
